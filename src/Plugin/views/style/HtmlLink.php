@@ -45,7 +45,6 @@ class HtmlLink extends StylePluginBase {
   protected function defineOptions() {
     $options = parent::defineOptions();
 
-    $options['class'] = array('default' => '');
     $options['link_token'] = array('default' => '');
 
     return $options;
