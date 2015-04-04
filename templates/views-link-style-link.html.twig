@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a view template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the container.
+ * - rows: A list of rows for this list.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's contents.
+ * - title: The title of this group of rows. May be empty.
+ *
+ * @see template_preprocess_views_link_style_link()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if attributes -%}
+  <div{{ attributes }}>
+{% endif %}
+  {% if title %}
+    <h3>{{ title }}</h3>
+  {% endif %}
+    {% for row in rows %}
+      <a{{ row.attributes }}>{{ row.content }}</a>
+    {% endfor %}
+{% if attributes -%}
+  </div>
+{% endif %}

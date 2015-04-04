@@ -1,0 +1,42 @@
+<?php
+/**
+ * @file
+ * Module file for views_link_style.
+ */
+
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Prepares variables for Views link template.
+ *
+ * Default template: views-link-style-link.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - view: A View object.
+ */
+function template_preprocess_views_link_style_link(&$variables) {
+  $view = $variables['view'];
+  $rows = $variables['rows'];
+  $style = $view->style_plugin;
+  $options = $style->options;
+
+  $variables['default_row_class'] = !empty($options['default_row_class']);
+
+  foreach ($rows as $id => $row) {
+    $variables['rows'][$id] = array();
+    $variables['rows'][$id]['content'] = $row;
+    $variables['rows'][$id]['attributes'] = array();
+    $variables['rows'][$id]['attributes'] = new Attribute($variables['rows'][$id]['attributes']);
+    if ($row_class = $view->style_plugin->getRowClass($id)) {
+      $variables['rows'][$id]['attributes']->addClass($row_class);
+    }
+    // Tokenize link.
+    $link = $view->style_plugin->tokenizeValue($options['link_token'], $id);
+
+    if (!$link) {
+      continue;
+    }
+    $variables['rows'][$id]['attributes']->setAttribute('href', $link);
+  }
+}

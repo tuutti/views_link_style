@@ -1,0 +1,4 @@
+name: Views link style plugin
+description: 'Wrap views row in a link'
+type: module
+core: 8.x
